@@ -1,0 +1,79 @@
+.aside {
+   flex-basis: 5%;
+   display: flex;
+   flex-direction: column;
+   padding-top: 20px;
+   padding-bottom: 10px;
+   background-color: white;
+   border-radius: 5px;
+   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+   // border: 1px solid orangered;
+}
+
+.filter__description {
+   display: flex;
+   justify-content: center;
+
+   font-weight: bold;
+   font-size: 12px;
+   padding: 0 0 10px 20px;
+}
+
+.filter__labels {
+   display: flex;
+   justify-content: center;
+   gap: 5px;
+}
+
+.filter__label {
+   display: flex;
+   align-items: center;
+   padding: 10px 0px;
+   cursor: pointer;
+}
+
+.filter__label:hover {
+   background-color: #f1fcff;
+}
+
+.filter__labels-wrapper {
+   display: flex;
+   flex-direction: column;
+}
+
+// Блок стилизации custom checkbox
+
+.filter__input {
+   appearance: none;
+}
+
+.filter__input:checked + .filter__custom-checkbox {
+   background-image: url("data:image/svg+xml,%3Csvg width='20' height='20' viewBox='0 0 20 20' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Crect x='0.5' y='0.5' width='19' height='19' rx='1.5' stroke='%232196F3'/%3E%3Cpath d='M8.28571 14L4 10.1612L5.20857 9.0787L8.28571 11.8273L14.7914 6L16 7.09021L8.28571 14Z' fill='%232196F3'/%3E%3C/svg%3E%0A"); // on
+}
+
+.filter__custom-checkbox {
+   width: 20px;
+   height: 20px;
+   margin-left: 20px;
+   background-image: url("data:image/svg+xml,%3Csvg width='20' height='20' viewBox='0 0 20 20' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Crect x='0.5' y='0.5' width='19' height='19' rx='1.5' stroke='%239ABBCE'/%3E%3C/svg%3E%0A"); // off
+}
+
+.filter__text {
+   padding-left: 10px;
+}
+
+@media (min-width: 768px) {
+   .aside {
+      align-self: flex-start;
+      flex-basis: 30%;
+   }
+
+   .filter__description {
+      justify-content: flex-start;
+   }
+
+   .filter__labels {
+      flex-direction: column;
+      gap: 0;
+   }
+}

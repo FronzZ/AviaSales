@@ -1,0 +1,42 @@
+.ticketSorter {
+   display: flex;
+   font-size: 12px;
+   border: 1px solid #dfe5ec;
+   border-radius: 5px;
+   overflow: hidden;
+   margin-bottom: 15px;
+   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+
+.ticketSorterButton {
+   flex: 1;
+   padding: 15px;
+   line-height: 20px;
+   font-weight: bold;
+   background-color: white;
+   border: none;
+   cursor: pointer;
+
+   &:not(:last-child) {
+      border-right: 1px solid #dfe5ec;
+   }
+
+   &:hover {
+      color: white;
+      background-color: #2196f3;
+      opacity: 0.8;
+      transition:
+         opacity 0.3s ease-in-out,
+         color 0.3s ease;
+   }
+
+   // Все кнопки кроме активного класса
+   &:not(&--active):active {
+      transform: scale(0.98);
+   }
+
+   &--active {
+      background-color: #2196f3;
+      color: white;
+   }
+}

@@ -1,0 +1,16 @@
+.app {
+   max-width: 760px;
+   min-width: 430px;
+   height: 100vh;
+   margin: 0 auto;
+   padding: 0 10px;
+
+   display: flex;
+   flex-direction: column;
+
+   background-color: #f3f7fa;
+
+   @media (min-width: 768px) {
+      padding: 0 0;
+   }
+}

@@ -1,0 +1,18 @@
+.header {
+   flex-basis: 16.5%;
+   flex-shrink: 0;
+
+   &__logo {
+      height: 100%;
+
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      background-color: #f3f7fa;
+      & > img {
+         width: 60px;
+         height: 60px;
+      }
+   }
+}
