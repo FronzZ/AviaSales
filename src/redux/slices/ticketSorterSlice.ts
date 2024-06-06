@@ -15,12 +15,8 @@ const ticketSorterSlice = createSlice({
    initialState,
    reducers: {
       changeTicketSorterStatus(state, action: PayloadAction<{ labelName: string }>) {
-         return {
-            ...state,
-            ticketSorter: [
-               ...state.ticketSorter.map((tab) => ({ ...tab, status: tab.label === action.payload.labelName })),
-            ],
-         };
+         const { labelName } = action.payload;
+         state.ticketSorter = state.ticketSorter.map((tab) => ({ ...tab, status: tab.label === labelName }));
       },
    },
 });
