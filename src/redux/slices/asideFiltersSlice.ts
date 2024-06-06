@@ -7,20 +7,20 @@ const initialState: IAsideFiltersState = {
       {
          id: 1,
          items: [
-            { label: 'Все пересадки', status: false },
-            { label: 'Без пересадок', status: false },
+            { label: 'Все пересадки', status: true },
+            { label: 'Без пересадок', status: true },
          ],
       },
       {
          id: 2,
          items: [
-            { label: '1 пересадка', status: false },
-            { label: '2 пересадки', status: false },
+            { label: '1 пересадка', status: true },
+            { label: '2 пересадки', status: true },
          ],
       },
       {
          id: 3,
-         items: [{ label: '3 пересадки', status: false }],
+         items: [{ label: '3 пересадки', status: true }],
       },
    ],
 };
@@ -30,53 +30,46 @@ const asideFiltersSlice = createSlice({
    initialState,
    reducers: {
       toggleFilterStatus(state, action: PayloadAction<{ labelName: string }>) {
-         return {
-            ...state,
-            filter: [
-               ...state.filter.map((group) => ({
-                  ...group,
-                  items: [
-                     ...group.items.map((filter) => {
-                        if (filter.label === action.payload.labelName) {
-                           return { ...filter, status: !filter.status };
-                        }
+         const { labelName } = action.payload;
 
-                        if (action.payload.labelName === 'Все пересадки') {
-                           const allTransfers =
-                              state.filter
-                                 .flatMap((filterElem) => filterElem.items)
-                                 .find((filterLabel) => filterLabel.label === 'Все пересадки')?.status || false;
+         state.filter.forEach((group) => {
+            group.items.forEach((filter) => {
+               // Инвертируем фильтр
+               if (labelName === filter.label) {
+                  filter.status = !filter.status;
+               }
 
-                           return { ...filter, status: !allTransfers };
-                        }
+               // Ставим статус для всех фильтров в зависимости от того какой статус у фильтра 'Все пересадки'
+               if (labelName === 'Все пересадки') {
+                  const allTransfers =
+                     state.filter
+                        .flatMap((filterElem) => filterElem.items)
+                        .find((filterLabel) => filterLabel.label === 'Все пересадки')?.status || false;
+                  filter.status = allTransfers;
+               }
 
-                        if (
-                           action.payload.labelName !== 'Все пересадки' &&
-                           filter.label === 'Все пересадки' &&
-                           filter.status
-                        ) {
-                           return { ...filter, status: false };
-                        }
+               // Если проставлены все фильтра и снимается один фильтр (какой-либо) убираем отметку с фильтра 'Все пересадки'
+               if (labelName !== 'Все пересадки' && filter.label === 'Все пересадки' && filter.status) {
+                  filter.status = !filter.status;
+               }
+            });
+         });
 
-                        if (action.payload.labelName !== 'Все пересадки' && filter.label === 'Все пересадки') {
-                           const allOthersTrue = [...state.filter.flatMap((filterElem) => filterElem.items)]
-                              .map((filterLabel) =>
-                                 filterLabel.label === action.payload.labelName
-                                    ? { ...filterLabel, status: !filterLabel.status }
-                                    : filterLabel,
-                              )
-                              .filter((filterLabel) => filterLabel.label !== 'Все пересадки')
-                              .every((filterLabel) => filterLabel.status);
+         // Автоматически ставлю галочку 'Все фильтра', если другие фильтры активны
+         const allCheckedFilters = state.filter
+            .flatMap((filterElem) => filterElem.items)
+            .filter((filterLabel) => filterLabel.label !== 'Все пересадки')
+            .every((filterLabel) => filterLabel.status);
 
-                           return { ...filter, status: allOthersTrue };
-                        }
-
-                        return filter;
-                     }),
-                  ],
-               })),
-            ],
-         };
+         if (allCheckedFilters) {
+            state.filter.forEach((group) =>
+               group.items.forEach((filter) => {
+                  if (filter.label === 'Все пересадки') {
+                     filter.status = true;
+                  }
+               }),
+            );
+         }
       },
    },
 });

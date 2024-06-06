@@ -50,6 +50,7 @@ module.exports = {
             tsx: 'never',
          },
       ],
+      'no-param-reassign': 'off', // Отключить если не использую rtk (в rtk используется immer, можно мутировать state)
    },
 
    settings: {

@@ -4,7 +4,7 @@ import { ITabsState } from '../../Interfaces/sorter';
 
 const initialState: ITabsState = {
    ticketSorter: [
-      { label: 'САМЫЙ ДЕШЕВЫЙ', status: false },
+      { label: 'САМЫЙ ДЕШЕВЫЙ', status: true },
       { label: 'САМЫЙ БЫСТРЫЙ', status: false },
       { label: 'ОПТИМАЛЬНЫЙ', status: false },
    ],
